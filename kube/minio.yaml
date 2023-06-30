@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 512Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+spec:
+  selector:
+    app: minio
+  ports:
+    - port: 9000
+      targetPort: 9000
+  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - name: minio
+          image: minio/minio:latest
+          resources:
+            requests:
+              memory: "128M"
+              cpu: "100m"
+            limits:
+              memory: "512M"
+              cpu: "250m"
+          args:
+            - server 
+            - /data
+          volumeMounts:
+            - name:  storage
+              mountPath:  /data
+          env:
+            # - name: MINIO_ACCESS_KEY
+            #   value: mykey
+            # - name: MINIO_SECRET_KEY
+            #   value: mysecret
+            - name: MINIO_ROOT_USER
+              value: mykey
+            - name: MINIO_ROOT_PASSWORD
+              value: mysecret
+          ports:
+            - containerPort: 9000
+              hostPort: 9000
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: minio-pvc

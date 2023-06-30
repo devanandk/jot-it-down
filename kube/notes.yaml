@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes-app
+spec:
+  selector:
+    app: notes-app
+  ports:
+  - port:  8080
+    targetPort: 8080
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: notes-app
+  template:
+    metadata:
+      labels:
+        app: notes-app
+    spec:
+      containers:
+        - name: app
+          image: devanandkmenon/notes-app:latest
+          resources:
+            requests:
+              memory: "128M"
+              cpu: "100m"
+            limits:
+              memory: "512M"
+              cpu: "250m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongo:27017
+            - name: MINIO_ACCESS_KEY
+              value: mykey
+            - name: MINIO_SECRET_KEY
+              value: mysecret
+            - name: MINIO_HOST
+              value: minio
+            - name: MINIO_PORT
+              value: "9000"
+          imagePullPolicy: Always
