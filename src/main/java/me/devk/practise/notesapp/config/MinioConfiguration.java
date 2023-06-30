@@ -19,9 +19,6 @@ public class MinioConfiguration {
     @Value("${minio.port:9000}")
     private String minioPort;
 
-    // @Value("${minio.scheme:http}")
-    // private String minioScheme;
-
     @Value("${minio.bucket:image-store}")
     private String minioBucket;
 

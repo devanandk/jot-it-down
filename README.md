@@ -6,6 +6,8 @@ This is an implementation of the project discussed in the article on [learnk8s.i
 
 The application used Spring JPA with a MongoDB database and a Minio Object Store, all running as microservices on a kubernetes cluster. I have made some modifications in the source code and configuration parameters based on changes to the components used in the application.
 
+![Application-Screenshot](./assets/app-screen-sample.jpg)
+
 # Getting Started
 -------------------------------------------
 Please setup an `application.properties` file in the `src/main/resources` directory with the following lines to get started -

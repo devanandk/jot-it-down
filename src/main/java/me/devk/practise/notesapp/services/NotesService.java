@@ -32,9 +32,6 @@ public class NotesService {
     @Autowired
     private NotesRepository notesRepository;
 
-    // @Autowired
-    // private AppProperties properties;
-
     @Autowired
     private MinioService minioService;
 
