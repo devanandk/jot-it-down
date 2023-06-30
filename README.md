@@ -1,12 +1,12 @@
 <h1 align="center">JOT IT DOWN</h1>
 
-# Developing and deploying containerized Spring Boot Microservices on Kubernetes
+## Developing and deploying containerized Spring Boot Microservices on Kubernetes
 -------------------------------------------
 This is an implementation of the project discussed in the article on [learnk8s.io](https://learnk8s.io/spring-boot-kubernetes-guide) by Mauricio Salatino where a simple note taking application is created using Java Spring Boot framework, containerized using docker and deployed on a local Kubernetes cluster.
 
 The application used Spring JPA with a MongoDB database and a Minio Object Store, all running as microservices on a kubernetes cluster. I have made some modifications in the source code and configuration parameters based on changes to the components used in the application.
 
-# Getting Started
+## Getting Started
 -------------------------------------------
 Please setup an `application.properties` file in the `src/main/resources` directory with the following lines to get started -
 
